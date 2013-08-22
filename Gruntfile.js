@@ -10,6 +10,7 @@ module.exports = function (grunt) {
 
   // configurable paths
   var yeomanConfig = {
+    root: '',
     app: 'app',
     dist: 'dist'
   };
@@ -85,6 +86,14 @@ module.exports = function (grunt) {
             '<%= yeoman.dist %>/*',
             '!<%= yeoman.dist %>/.git*'
           ]
+        }]
+      },
+      release: {
+        files: [{
+            dot: true,
+            src: [
+                '<%= yeoman.dist %>/app*'
+            ]
         }]
       },
       server: '.tmp'
@@ -214,9 +223,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.dist %>/scripts',
+          cwd: '<%= yeoman.dist %>/app/scripts',
           src: '*.js',
-          dest: '<%= yeoman.dist %>/scripts'
+          dest: '<%= yeoman.dist %>'
         }]
       }
     },
@@ -226,6 +235,13 @@ module.exports = function (grunt) {
           '<%= yeoman.dist %>/scripts/scripts.js': [
             '<%= yeoman.dist %>/scripts/scripts.js'
           ]
+        }
+      },
+      release: {
+        files: {
+          '<%= yeoman.dist %>/idb_core.min.js': ['<%= yeoman.dist %>/idb_core.js'],
+          '<%= yeoman.dist %>/idb_proxy.min.js': ['<%= yeoman.dist %>/idb_proxy.js'],
+          '<%= yeoman.dist %>/idb_server.min.js': ['<%= yeoman.dist %>/idb_server.js']
         }
       }
     },
@@ -246,14 +262,12 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= yeoman.app %>',
+          cwd: '<%= yeoman.root %>',
           dest: '<%= yeoman.dist %>',
           src: [
-            '*.{ico,txt}',
-            '.htaccess',
-            'components/**/*',
-            'images/{,*/}*.{gif,webp}',
-            'styles/fonts/*'
+            'app/scripts/idb_*.js',
+            'README.md',
+            'LICENSE'
           ]
         }]
       }
@@ -297,6 +311,14 @@ module.exports = function (grunt) {
     'uglify',
     'rev',
     'usemin'
+  ]);
+
+  grunt.registerTask('release', [
+      'clean:dist',
+      'test',
+      'copy:dist',
+      'ngmin',
+      'clean:release'
   ]);
 
   grunt.registerTask('default', ['build']);
