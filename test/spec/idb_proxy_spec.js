@@ -77,7 +77,32 @@ describe("IDB PROXY", function() {
                     return idb_proxy.lpush(proxy, "ar1", 1);
                 })
                 .subscribe(function(proxy) {
-                    debugger;
+                    idb_proxy.destroy(proxy);
+                    done();
+                })
+        })
+    });
+
+
+    it("should add/remove with set", function() {
+        run_done(function(done) {
+            idb_proxy.create(random_sample_db(), BASE_PATH)
+                .selectMany(function(proxy) {
+                    return idb_proxy.sadd(proxy, "p", "a", 1);
+                })
+                .selectMany(function(proxy) {
+                    expect(proxy.result.v.a).toBe(1);
+                    return idb_proxy.sadd(proxy, "p", "b", 2);
+                })
+                .selectMany(function(proxy) {
+                    expect(proxy.result.v.a).toBe(1);
+                    expect(proxy.result.v.b).toBe(2);
+                    return idb_proxy.sremove(proxy, "p", "b");
+                })
+                .subscribe(function(proxy) {
+                    expect(proxy.result.v.a).toBe(1);
+                    expect(proxy.result.v.b).toBe(undefined);
+
                     idb_proxy.destroy(proxy);
                     done();
                 })

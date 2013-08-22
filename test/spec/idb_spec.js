@@ -193,6 +193,64 @@ describe("IDB", function() {
                 });
         });
     });
+
+    it("should add or remove k,v from set", function() {
+        run_done(function(done) {
+            idb.open(random_db_name())
+                .selectMany(function(ctx) { return idb.sadd(ctx, "p", "xx", "a"); })
+                .selectMany(function(ctx) {
+                    expect(ctx.result.v.xx).toBe("a");
+                    return idb.sadd(ctx, "p", "xy", "ab");
+                })
+                .selectMany(function(ctx) {
+                    expect(ctx.result.v.xx).toBe("a");
+                    expect(ctx.result.v.xy).toBe("ab");
+
+                    return idb.sadd(ctx, "p", "xyz", "abc");
+                })
+                .selectMany(function(ctx) {
+                    expect(ctx.result.v.xx).toBe("a");
+                    expect(ctx.result.v.xy).toBe("ab");
+                    expect(ctx.result.v.xyz).toBe("abc");
+
+                    return idb.sremove(ctx, "p", "xyz");
+                })
+                .selectMany(function(ctx) {
+                    expect(ctx.result.v.xx).toBe("a");
+                    expect(ctx.result.v.xy).toBe("ab");
+                    expect(ctx.result.v.xyz).toBe(undefined);
+
+                    return idb.sremove(ctx, "p", "xy");
+                })
+                .selectMany(function(ctx) {
+                    expect(ctx.result.v.xx).toBe("a");
+                    expect(ctx.result.v.xy).toBe(undefined);
+                    expect(ctx.result.v.xyz).toBe(undefined);
+
+                    return idb.sremove(ctx, "p", "xy");
+                })
+                .selectMany(function(ctx) {
+                    expect(ctx.result.v.xx).toBe("a");
+                    expect(ctx.result.v.xy).toBe(undefined);
+                    expect(ctx.result.v.xyz).toBe(undefined);
+
+                    return idb.sremove(ctx, "p", "delete-non-exist-key");
+                })
+                .selectMany(function(ctx) {
+                    expect(ctx.result.v.xx).toBe("a");
+                    expect(ctx.result.v.xy).toBe(undefined);
+                    expect(ctx.result.v.xyz).toBe(undefined);
+
+                    return idb.sremove(ctx, "p", "xx");
+                })
+                .subscribe(function(ctx) {
+                    expect(ctx.result.v.xx).toBe(undefined);
+                    expect(ctx.result.v.xy).toBe(undefined);
+                    expect(ctx.result.v.xyz).toBe(undefined);
+                    done();
+                })
+        })
+    })
 });
 
 

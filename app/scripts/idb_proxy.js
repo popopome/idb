@@ -63,6 +63,8 @@
     function lpop(proxy, k)         {   return proxy_send_command_as_ob(proxy, "lpop", k, v);       }
     function rpush(proxy, k, v)     {   return proxy_send_command_as_ob(proxy, "rpush", k, v);      }
     function rpop(proxy, k, v)      {   return proxy_send_command_as_ob(proxy, "rpop", k, v);       }
+    function sadd(proxy, k, k_inner, v) {   return proxy_send_command_as_ob(proxy, "sadd", k, k_inner, v);      }
+    function sremove(proxy, k, k_inner) {   return proxy_send_command_as_ob(proxy, "sremove", k, k_inner);      }
 
     var idb_proxy = {};
     idb_proxy.create = function(name, basepath) {
@@ -79,6 +81,8 @@
     idb_proxy.lpop = lpop;
     idb_proxy.rpush = rpush;
     idb_proxy.rpop = rpop;
+    idb_proxy.sadd = sadd;
+    idb_proxy.sremove = sremove;
 
     idb_proxy.destroy = function(proxy) {
         proxy.worker.terminate();

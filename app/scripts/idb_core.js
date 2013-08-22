@@ -256,6 +256,21 @@
             });
     }
 
+    function sadd(ctx, k, k_inner, v) {
+        return update_value_with_opfunc(ctx, k, null, function(ov, nv) {
+            ov = ov || {};
+            ov[k_inner] = v;
+            return ov;
+        });
+    }
+    function sremove(ctx, k, k_inner) {
+        return update_value_with_opfunc(ctx, k, null, function(ov, nv) {
+            ov = ov || {};
+            delete ov[k_inner];
+            return ov;
+        });
+    }
+
     function llen(ctx, k) {
         return get(ctx, k)
             .select(function(ctx) {
@@ -325,6 +340,9 @@
 
     root.idb.incr = incr;
     root.idb.decr = decr;
+
+    root.idb.sadd = sadd;
+    root.idb.sremove = sremove;
 
     root.idb.set_func = set_func;
     root.idb.get_func = get_func;
