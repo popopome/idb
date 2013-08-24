@@ -56,7 +56,9 @@
         lpop: wrap_func_post_message(function(cmd) {    return idb.lpop(g_ctx, cmd[1])}),
         rpop: wrap_func_post_message(function(cmd) {    return idb.rpop(g_ctx, cmd[1])}),
         sadd: wrap_func_post_message(function(cmd) {    return idb.sadd(g_ctx, cmd[1], cmd[2], cmd[3])}),
-        sremove: wrap_func_post_message(function(cmd) { return idb.sremove(g_ctx, cmd[1], cmd[2])})
+        sremove: wrap_func_post_message(function(cmd) { return idb.sremove(g_ctx, cmd[1], cmd[2])}),
+        incr: wrap_func_post_message(function(cmd) { return idb.incr(g_ctx, cmd[1])}),
+        decr: wrap_func_post_message(function(cmd) { return idb.decr(g_ctx, cmd[1])})
     };
 
     root.onmessage = function(evt) {
