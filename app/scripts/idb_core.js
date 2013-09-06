@@ -84,6 +84,7 @@
 
 
     function open(dbname) {
+        var indexedDB = indexedDB || webkitIndexedDB || msIndexedDB || mozIndexedDB;
         var req = indexedDB.open(dbname, IDB_VERSION);
 
         var ob_open = success_error_to_ob(req);
@@ -116,8 +117,6 @@
                 return ctx_set_result(ctx, item);
             });
     }
-
-    function _assoc(map, k, v) {    map[k] = v; return map; }
 
     function get(ctx, k, default_val) {
         var req = get_store_ro(ctx.db).get(k);

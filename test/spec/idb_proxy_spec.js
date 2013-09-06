@@ -20,6 +20,7 @@ describe("IDB PROXY", function() {
     it("should open in background", function() {
 
         run_done(function(done) {
+                debugger;
             idb_proxy.create(random_sample_db(), BASE_PATH)
                 .selectMany(function(proxy) {
                     return idb_proxy.set(proxy, "k1", "hello");
