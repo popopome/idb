@@ -250,7 +250,24 @@ describe("IDB", function() {
                     done();
                 })
         })
-    })
+    });
+
+
+  xit("should iterate empty idb", function() {
+    run_done(function(done) {
+      idb.open("000000")
+        .subscribe(function(ctx) {
+          idb.all(ctx)
+            .subscribe(function() {},
+          function(err) {},
+          function() {
+            console.log("EMPTY rows. DONE called");
+            done();
+          })
+        });
+    }, 512);
+  })
+
 });
 
 

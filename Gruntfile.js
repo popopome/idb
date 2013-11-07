@@ -266,6 +266,7 @@ module.exports = function (grunt) {
           dest: '<%= yeoman.dist %>',
           src: [
             'app/scripts/idb_*.js',
+            'app/scripts/sync_engine.js',
             'README.md',
             'LICENSE'
           ]
@@ -315,7 +316,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('release', [
       'clean:dist',
-      'test',
       'copy:dist',
       'ngmin',
       'clean:release'

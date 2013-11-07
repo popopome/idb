@@ -71,6 +71,7 @@ describe("IDB PROXY", function() {
         })
     })
 
+
     it("should push/pop from left or right direction", function() {
         run_done(function(done) {
             idb_proxy.create(random_sample_db(), BASE_PATH)

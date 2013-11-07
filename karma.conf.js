@@ -1,67 +1,86 @@
 // Karma configuration
+// Generated on Sun Nov 03 2013 00:11:32 GMT-0700 (Pacific Daylight Time)
 
-// base path, that will be used to resolve files and exclude
-basePath = '';
+module.exports = function(config) {
+  config.set({
 
-// list of files / patterns to load in the browser
-files = [
-  JASMINE,
-  JASMINE_ADAPTER,
-  'app/components/angular/angular.js',
-  'app/components/angular-mocks/angular-mocks.js',
-  'app/components/rxjs/rx.js',
-  'app/components/rxjs/rx.aggregates.js',
-  'app/components/rxjs/rx.binding.js',
-  'app/components/rxjs/rx.coincidence.js',
-  'app/components/rxjs/rx.experimental.js',
-  'app/components/rxjs/rx.joinpatterns.js',
-  'app/components/rxjs/rx.testing.js',
-  'app/components/rxjs/rx.time.js',
+    // base path, that will be used to resolve files and exclude
+    basePath: '',
 
-  'app/components/underscore/underscore.js',
-  'app/components/underscore-contrib/underscore-contrib.js',
-  'app/scripts/*.js',
-  'app/scripts/**/*.js',
-  'test/mock/**/*.js',
-  'test/spec/**/*.js'
-];
 
-// list of files to exclude
-//exclude = ['app/scripts/idb_server*.js'];
+    // frameworks to use
+    frameworks: ['jasmine'],
 
-// test results reporter to use
-// possible values: dots || progress || growl
-reporters = ['progress'];
 
-// web server port
-port = 8081;
+    // list of files / patterns to load in the browser
+    files: [
+      'app/components/angular/angular.js',
+      'app/components/angular-mocks/angular-mocks.js',
+      'app/components/rxjs/rx.js',
+      'app/components/rxjs/rx.aggregates.js',
+      'app/components/rxjs/rx.binding.js',
+      'app/components/rxjs/rx.coincidence.js',
+      'app/components/rxjs/rx.experimental.js',
+      'app/components/rxjs/rx.joinpatterns.js',
+      'app/components/rxjs/rx.time.js',
+      'app/components/rxjs/rx.virtualtime.js',
+      'app/components/rx-dom/rx.dom.js',
 
-// cli runner port
-runnerPort = 9100;
+      'app/components/underscore/underscore.js',
+      'app/components/underscore-contrib/underscore-contrib.js',
+      'app/scripts/*.js',
+      'app/scripts/**/*.js',
+      "test/spec/utils.js",
+      "scripts/**/*.js",
+      "test/**/*_spec.js"
+    ],
 
-// enable / disable colors in the output (reporters and logs)
-colors = true;
 
-// level of logging
-// possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-logLevel = LOG_INFO;
+    // list of files to exclude
+    exclude: [
+      
+    ],
 
-// enable / disable watching file and executing tests whenever any file changes
-autoWatch = true;
 
-// Start these browsers, currently available:
-// - Chrome
-// - ChromeCanary
-// - Firefox
-// - Opera
-// - Safari (only Mac)
-// - PhantomJS
-// - IE (only Windows)
-browsers = ['ChromeCanary'];
+    // test results reporter to use
+    // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
+    reporters: ['progress'],
 
-// If browser does not capture in given timeout [ms], kill it
-captureTimeout = 5000;
 
-// Continuous Integration mode
-// if true, it capture browsers, run tests and exit
-singleRun = false;
+    // web server port
+    port: 9876,
+
+
+    // enable / disable colors in the output (reporters and logs)
+    colors: true,
+
+
+    // level of logging
+    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+    logLevel: config.LOG_INFO,
+
+
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: false,
+
+
+    // Start these browsers, currently available:
+    // - Chrome
+    // - ChromeCanary
+    // - Firefox
+    // - Opera
+    // - Safari (only Mac)
+    // - PhantomJS
+    // - IE (only Windows)
+    browsers: ['ChromeCanary'],
+
+
+    // If browser does not capture in given timeout [ms], kill it
+    captureTimeout: 60000,
+
+
+    // Continuous Integration mode
+    // if true, it capture browsers, run tests and exit
+    singleRun: false
+  });
+};
